@@ -1,5 +1,6 @@
 import './App.css'
 import Graph from './components/Graph'
+import NewExpenseForm from './components/NewExpenseForm'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           {/* Chart */}
           <Graph />
           {/* Form */}
+          <NewExpenseForm />
         </div>
       </div>
     </div>
