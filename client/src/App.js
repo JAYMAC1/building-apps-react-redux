@@ -1,4 +1,5 @@
 import './App.css'
+import Graph from './components/Graph'
 
 function App() {
   return (
@@ -8,6 +9,11 @@ function App() {
           Expense Tracker
         </h1>
         {/* grid colums */}
+        <div className='grid md:grid-cols-2 gap-4'>
+          {/* Chart */}
+          <Graph />
+          {/* Form */}
+        </div>
       </div>
     </div>
   )
