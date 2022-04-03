@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import List from './List'
 
 const NewExpenseForm = () => {
   const { register, handleSubmit, resetField } = useForm()
@@ -42,6 +43,7 @@ const NewExpenseForm = () => {
           </div>
         </div>
       </form>
+      <List></List>
     </div>
   )
 }
