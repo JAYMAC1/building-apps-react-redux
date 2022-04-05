@@ -1,13 +1,13 @@
 const model = require('../models/model')
 
-// get categories
-const createCategories = (req, res) => {
+// POST Create categories http://localhost:8080/api/categories
+const createCategories = async (req, res) => {
   const Create = new model.Categories({
-    type: 'Saving',
-    color: '#1F3B5C',
+    type: 'Investment',
+    color: '#FCBE44',
   })
 
-  Create.save((err) => {
+  await Create.save((err) => {
     if (!err) {
       return res.json(Create)
     }
@@ -17,6 +17,17 @@ const createCategories = (req, res) => {
   })
 }
 
+// GET Fetch categories http://localhost:8080/api/categories
+const getCategories = async (req, res) => {
+  let data = await model.Categories.find({})
+
+  const filter = await data.map((category) =>
+    Object.assign({}, { type: category.type, color: category.color })
+  )
+  return res.json(filter)
+}
+
 module.exports = {
   createCategories,
+  getCategories,
 }
