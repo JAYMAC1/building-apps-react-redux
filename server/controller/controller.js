@@ -27,7 +27,31 @@ const getCategories = async (req, res) => {
   return res.json(filter)
 }
 
+// POST Create transaction http://localhost:8080/api/transaction
+const createTransaction = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).json('Post HTTP Data not provided.')
+  }
+  const { name, type, amount } = req.body
+
+  const create = await new model.Transaction({
+    name,
+    type,
+    amount,
+    date: new Date(),
+  })
+
+  create.save((err) => {
+    if (!err) {
+      return res.json(create)
+    }
+    return res
+      .status(400)
+      .json({ message: `Error while creating transaction ${err}` })
+  })
+}
 module.exports = {
   createCategories,
   getCategories,
+  createTransaction,
 }
