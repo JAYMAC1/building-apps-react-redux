@@ -6,4 +6,6 @@ routes
   .post(controller.createCategories)
   .get(controller.getCategories)
 
+routes.route('/api/transaction').post(controller.createTransaction)
+
 module.exports = routes
