@@ -50,8 +50,37 @@ const createTransaction = async (req, res) => {
       .json({ message: `Error while creating transaction ${err}` })
   })
 }
+
+// GET Fetch Transaction http://localhost:8080/api/transactions
+const getTransaction = async (req, res) => {
+  let data = await model.Transaction.find({})
+  return res.json(data)
+}
+
+// Delete Fetch Transaction http://localhost:8080/api/transactions
+// const deleteTransaction = async (req, res) => {
+// @desc    delete a transaction
+// @route   DELETE /api/tickets/:id
+// @access  Private
+const deleteTransaction = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).json({ message: 'Request body not found' })
+  }
+  await model.Transaction.deleteOne(req.body, (err) => {
+    if (!err) {
+      return res.json('Record deleted.')
+    }
+  })
+    .clone()
+    .catch((err) => {
+      res.json(`Could not delete transaction: ${err}`)
+    })
+}
+
 module.exports = {
   createCategories,
   getCategories,
   createTransaction,
+  getTransaction,
+  deleteTransaction,
 }
