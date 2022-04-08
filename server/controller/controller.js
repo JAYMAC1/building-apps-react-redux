@@ -93,7 +93,19 @@ const getLabels = (req, res) => {
     },
   ])
     .then((result) => {
-      res.json(result)
+      const data = result.map((item) =>
+        Object.assign(
+          {},
+          {
+            id: item._id,
+            name: item.name,
+            type: item.type,
+            amount: item.amount,
+            color: item.categoriesInfo.color,
+          }
+        )
+      )
+      res.json(data)
     })
     .catch((err) => {
       res.status(400).json(`Lookup collection Error: ${err}`)
