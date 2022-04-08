@@ -51,13 +51,13 @@ const createTransaction = async (req, res) => {
   })
 }
 
-// GET Fetch Transaction http://localhost:8080/api/transactions
+// GET Fetch Transaction http://localhost:8080/api/transaction
 const getTransaction = async (req, res) => {
   let data = await model.Transaction.find({})
   return res.json(data)
 }
 
-// Delete Fetch Transaction http://localhost:8080/api/transactions
+// Delete Transaction http://localhost:8080/api/transaction
 // const deleteTransaction = async (req, res) => {
 // @desc    delete a transaction
 // @route   DELETE /api/tickets/:id
@@ -77,10 +77,34 @@ const deleteTransaction = async (req, res) => {
     })
 }
 
+// GET Fetch Transaction http://localhost:8080/api/labels
+const getLabels = (req, res) => {
+  model.Transaction.aggregate([
+    {
+      $lookup: {
+        from: 'categories',
+        localField: 'type',
+        foreignField: 'type',
+        as: 'categoriesInfo',
+      },
+    },
+    {
+      $unwind: '$categoriesInfo',
+    },
+  ])
+    .then((result) => {
+      res.json(result)
+    })
+    .catch((err) => {
+      res.status(400).json(`Lookup collection Error: ${err}`)
+    })
+}
+
 module.exports = {
   createCategories,
   getCategories,
   createTransaction,
   getTransaction,
   deleteTransaction,
+  getLabels,
 }
