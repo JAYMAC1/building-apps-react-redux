@@ -11,4 +11,6 @@ routes
   .get(controller.getTransaction)
   .post(controller.createTransaction)
   .delete(controller.deleteTransaction)
+
+routes.route('/api/labels').get(controller.getLabels)
 module.exports = routes
