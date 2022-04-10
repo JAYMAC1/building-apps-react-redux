@@ -9,7 +9,9 @@ export const expenseSlice = createSlice({
   name: 'expense',
   initialState,
   reducers: {
-    getTransactions: (state) => {},
+    getTransactions: (state) => {
+      // get code
+    },
   },
 })
 
