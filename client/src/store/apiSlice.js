@@ -5,7 +5,7 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getCategories: builder.query({
       // get request 'http://localhost:8080'
-      query: () => '/api/categores',
+      query: () => '/api/categories',
     }),
   }),
 })
