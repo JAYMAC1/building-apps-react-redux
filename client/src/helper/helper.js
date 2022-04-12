@@ -27,3 +27,32 @@ export const getLabels = (transaction) => {
 
   return percent
 }
+
+export const chartData = (transaction) => {
+  const bgColor = _.uniq(_.map(transaction, (a) => a.color))
+  const dataValue = getSum(transaction)
+
+  const config = {
+    data: {
+      datasets: [
+        {
+          data: dataValue,
+          backgroundColor: bgColor,
+          hoverOffset: 4,
+          borderRadius: 5,
+          spacing: 5,
+        },
+      ],
+    },
+    options: {
+      cutout: 115,
+    },
+  }
+
+  return config
+}
+
+export const getTotal = (transaction) => {
+  const totalAmount = _.sum(getSum(transaction))
+  return totalAmount
+}
