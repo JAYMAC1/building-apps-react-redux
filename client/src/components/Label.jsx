@@ -1,37 +1,21 @@
 import React from 'react'
 import { default as api } from '../store/apiSlice'
 
-const obj = [
-  {
-    id: 1,
-    type: 'Savings',
-    color: '#f9c74f',
-    percent: 45,
-  },
-  {
-    id: 2,
-    type: 'Investments',
-    color: '#f9c74f',
-    percent: 20,
-  },
-  {
-    id: 3,
-    type: 'Expense',
-    color: '#f9c74f',
-    percent: 10,
-  },
-]
-
 const Label = () => {
-  const { data, isFetching, isError, isSuccess } = api.useGetCategoriesQuery()
+  const { data, isFetching, isError, isSuccess } = api.useGetLabelsQuery()
 
-  return (
-    <>
-      {obj.map((label) => (
-        <LabelComponent key={label.id} label={label} />
-      ))}
-    </>
-  )
+  let Transactions
+  if (isFetching) {
+    Transactions = <div>Fetching transaction data.....</div>
+  } else if (isSuccess) {
+    Transactions = data.map((label, i) => (
+      <LabelComponent key={i} label={label} />
+    ))
+  } else if (isError) {
+    Transactions = <div>Error getting transaction data....</div>
+  }
+
+  return <>{Transactions}</>
 }
 
 const LabelComponent = ({ label }) => {
