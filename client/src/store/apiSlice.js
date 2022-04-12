@@ -7,11 +7,13 @@ export const apiSlice = createApi({
     getCategories: builder.query({
       // get request 'http://localhost:8080'
       query: () => '/api/categories',
+      providesTags: ['categories'],
     }),
 
     // Get Labels
     getLabels: builder.query({
       query: () => '/api/labels',
+      providesTags: ['transaction'],
     }),
 
     // add new transaction
@@ -21,6 +23,13 @@ export const apiSlice = createApi({
         method: 'POST',
         body: newTransaction,
       }),
+      invalidatesTags: ['transaction'],
+    }),
+
+    // Get Transactions
+    getTransaction: builder.query({
+      // get request 'http://localhost:8080'
+      query: () => '/api/transaction',
     }),
 
     // delete a transaction
@@ -30,6 +39,7 @@ export const apiSlice = createApi({
         method: 'DELETE',
         body: transactionID,
       }),
+      invalidatesTags: ['transaction'],
     }),
   }),
 })
